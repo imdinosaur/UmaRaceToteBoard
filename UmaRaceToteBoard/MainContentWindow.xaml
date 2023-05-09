@@ -1,0 +1,634 @@
+﻿<Window x:Class="UmaRaceToteBoard.MainContentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UmaRaceToteBoard" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:system="http://schemas.microsoft.com/winfx/2009/xaml"
+        mc:Ignorable="d"
+        WindowStyle="None"    
+        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" 
+        ResizeMode="NoResize"
+        Closing="Window_Closing" Height="1024" Width="600"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        >
+
+
+    <materialDesign:DialogHost Identifier="RootDialog" 
+                              
+            SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        <materialDesign:DrawerHost
+
+                IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+
+
+            <DockPanel   Background="Black" >
+                <!--
+                <materialDesign:ColorZone Mode="PrimaryDark" Padding="16"
+                        VerticalAlignment="Stretch" 
+                        DockPanel.Dock="Top">
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal"
+                                materialDesign:RippleAssist.IsCentered="True">
+                            <ToggleButton x:Name="MenuToggleButton"
+                                    Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                            <Label Content="稼動監控系統 Delta 1.0"
+                                    VerticalContentAlignment="Center"
+                                    FontSize="{DynamicResource {x:Static SystemParameters.CaptionHeightKey}}" />
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:ColorZone>-->
+
+
+                <materialDesign:DialogHost Identifier="RootDialog" Grid.Row="0" Grid.Column="0"
+                                           Margin="0,50"
+            SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+                    <materialDesign:DrawerHost
+                IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                        <StackPanel Margin="4,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="75"/>
+                                    <RowDefinition Height="75"/>
+                                    <RowDefinition Height="75"/>
+                                    <RowDefinition Height="75"/>
+                                    <RowDefinition Height="75"/>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBlock  HorizontalAlignment="Center" Text="東" FontSize="55" Name="Dispaly_LocationName_F"></TextBlock>
+                                    <TextBlock  HorizontalAlignment="Center" Text="京" FontSize="55" Name="Dispaly_LocationName_S" Margin="0,-12,0,0"></TextBlock>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Grid.Row="0"  >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:Card Margin="10,30" Grid.Column="0" Grid.Row="0"   Background="{DynamicResource UmaGrayBrush}">
+                                        <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       Grid.Column="0" 
+                                                       Width="90"
+                                                       TextAlignment="Right"
+                                                       Margin="0,-20,10,-20"
+                                                       Name="Display_RaceRound"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="80"
+                                                       Text="12" />
+                                        </Grid>
+                                    </materialDesign:Card>
+
+                                    <Grid  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                       Margin="-50,0,0,0"
+                                                       FontSize="55"
+                                                       Foreground="White"
+                                                       Text="R" />
+
+                                    </Grid>
+                                </Grid>
+
+                                <materialDesign:Card 
+                                    Name="Display_RankStatusCard"
+                                    Grid.Column="2" Margin="15,10,15,5" Grid.Row="0" Background="{DynamicResource UmaRedBrush}">
+                                    <TextBlock 
+                                        Name="Display_RankStatusText"
+                                        Text="確定" 
+                                        FontSize="140"
+                                        VerticalAlignment="Center"
+                                        Margin="0,-25" 
+                                        HorizontalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <Grid Width="70" Height="70"  Grid.Column="0" Grid.Row="1">
+                                    <Ellipse Stroke="{DynamicResource UmaBlueBrush}" Fill="{DynamicResource UmaBlueBrush}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="Ⅰ"  FontSize="50" TextAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <StackPanel Margin="10,5,10,5"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+                                    <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Name="Dispaly_Rank_1st_Ten"
+                                                           Margin="5,0"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                           Text="1" />
+                                            </StackPanel>
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"             
+                                                           Name="Dispaly_Rank_1st_Digits"
+                                                           Margin="5,0"                                    
+                                                           Foreground="{DynamicResource UmaYellowBrush}"                                 
+                                                           FontSize="70"                                           
+                                                           Text="1" />
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </StackPanel>
+
+                                <Grid Width="70" Height="70"  Grid.Column="0" Grid.Row="2">
+                                    <Ellipse Stroke="{DynamicResource UmaBlueBrush}" Fill="{DynamicResource UmaBlueBrush}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="Ⅱ"  FontSize="50" TextAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                                <StackPanel Margin="10,5,10,5"  Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">
+                                    <materialDesign:Card  Background="{DynamicResource UmaGrayBrush}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Name="Dispaly_Rank_2nd_Ten"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                           Text="" />
+                                            </StackPanel>
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Name="Dispaly_Rank_2nd_Digits"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                           Text="9" />
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </StackPanel>
+
+                                <Grid Width="70" Height="70"  Grid.Column="0" Grid.Row="3">
+                                    <Ellipse Stroke="{DynamicResource UmaBlueBrush}" Fill="{DynamicResource UmaBlueBrush}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="Ⅲ"  FontSize="50" TextAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                                <StackPanel Margin="10,5,10,5"  Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">
+                                    <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Name="Dispaly_Rank_3rd_Ten"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"        
+                                                           Text="" />
+                                            </StackPanel>
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Name="Dispaly_Rank_3rd_Digits"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                           Text="7" />
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </StackPanel>
+
+                                <Grid Width="70" Height="70"  Grid.Column="0" Grid.Row="4">
+                                    <Ellipse Stroke="{DynamicResource UmaBlueBrush}" Fill="{DynamicResource UmaBlueBrush}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="Ⅳ"  FontSize="50" TextAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                                <StackPanel Margin="10,5,10,5"  Grid.Column="1" Grid.Row="4"  VerticalAlignment="Center">
+                                    <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Name="Dispaly_Rank_4th_Ten"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                           Text="" />
+                                            </StackPanel>
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Name="Dispaly_Rank_4th_Digits"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                           Text="3" />
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </StackPanel>
+
+                                <Grid Width="70" Height="70"  Grid.Column="0" Grid.Row="5">
+                                    <Ellipse Stroke="{DynamicResource UmaBlueBrush}" Fill="{DynamicResource UmaBlueBrush}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="Ⅴ"  FontSize="50" TextAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                                <StackPanel Margin="10,5,10,5"  Grid.Column="1" Grid.Row="5"  VerticalAlignment="Center">
+                                    <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"         
+                                                           Name="Dispaly_Rank_5th_Ten"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                           Text="" />
+                                            </StackPanel>
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           Name="Dispaly_Rank_5th_Digits"
+                                                           FontSize="70"
+                                                           Text="2" />
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid Margin="-30,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="85"/>
+                                            <RowDefinition Height="85"/>
+                                            <RowDefinition Height="85"/>
+                                            <RowDefinition Height="85"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="120"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="/ \" 
+                                                   Grid.Row="0"
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"  
+                                                   FontSize="55" 
+                                                   FontWeight="UltraBold"
+                                                   Foreground="#595151" RenderTransformOrigin="0.5,0.5"
+                                                   >
+                                            <TextBlock.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="90"/>
+                                                </TransformGroup>
+                                            </TextBlock.RenderTransform>
+
+                                        </TextBlock>
+                                        <TextBlock Text="/ \" 
+                                                   Grid.Row="1"
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"  
+                                                   FontSize="55" 
+                                                   FontWeight="UltraBold"
+                                                   Foreground="#595151" RenderTransformOrigin="0.5,0.5"
+                                                   >
+                                            <TextBlock.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="90"/>
+                                                </TransformGroup>
+                                            </TextBlock.RenderTransform>
+
+                                        </TextBlock>
+                                        <TextBlock Text="/ \" 
+                                                    Grid.Row="2"
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"  
+                                                   FontSize="55" 
+                                                   FontWeight="UltraBold"
+                                                   Foreground="#595151" RenderTransformOrigin="0.5,0.5"
+                                                   >
+                                            <TextBlock.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="90"/>
+                                                </TransformGroup>
+                                            </TextBlock.RenderTransform>
+
+                                        </TextBlock>
+                                        <TextBlock Text="/ \" 
+                                                    Grid.Row="3"
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"  
+                                                   FontSize="55" 
+                                                   FontWeight="UltraBold"
+                                                   Foreground="#595151" RenderTransformOrigin="0.5,0.5"
+                                                   >
+                                            <TextBlock.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="90"/>
+                                                </TransformGroup>
+                                            </TextBlock.RenderTransform>
+
+                                        </TextBlock>
+
+
+
+
+
+                                        <StackPanel  Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="0,15">
+                                            <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           TextAlignment="Center"
+                                                           Name="Dispaly_HorseLength_1_2"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="55"
+                                                           Text="ハナ" />
+                                            </materialDesign:Card>
+                                        </StackPanel>
+
+                                        <StackPanel  Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,15">
+                                            <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+
+                                                        <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                                   Name="Dispaly_HorseLength_2_3"
+                                                                   TextAlignment="Center"
+                                                                   Foreground="{DynamicResource UmaYellowBrush}"
+                                                                   FontSize="55"
+                                                                   Text="1 ½" />
+
+                                            </materialDesign:Card>
+                                        </StackPanel>
+
+                                        <StackPanel  Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,15">
+                                            <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+
+                                                        <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                                   HorizontalAlignment="Center"
+                                                                   Name="Dispaly_HorseLength_3_4"
+                                                                   Foreground="{DynamicResource UmaYellowBrush}"
+                                                                   FontSize="55" 
+                                                                   Text="ｱﾀﾏ" />
+
+                                            </materialDesign:Card>
+                                        </StackPanel>
+
+                                        <StackPanel  Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="0,15">
+                                            <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
+
+                                                    <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"        HorizontalAlignment="Center" VerticalAlignment="Center"  
+                                                                   Name="Dispaly_HorseLength_4_5"
+                                                                   TextAlignment="Center"
+                                                                   Foreground="{DynamicResource UmaYellowBrush}"
+                                                                   FontSize="55"
+                                                                   Text="大差" />
+
+                                            </materialDesign:Card>
+                                        </StackPanel>
+
+
+
+                                    </Grid>
+
+                                </StackPanel>
+
+                            </Grid>
+                   
+                            <Grid Margin="0,10,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <StackPanel Margin="10,0">
+                                        <TextBlock FontSize="50" 
+                                                   FontWeight="Bold"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center">芝</TextBlock>
+                                        <StackPanel Margin="10,5,10,5"  Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}" Width="170">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           TextAlignment="Center"
+                                                           Name="Dispaly_RoadStatus_Grass"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           FontSize="70"
+                                                       Text="良" />
+                                            </materialDesign:Card>
+                                        </StackPanel>
+                                    
+                                        <TextBlock FontSize="50"
+                                                   FontWeight="Bold"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center">ダート</TextBlock>
+                                        <StackPanel Margin="10,5,10,5"  Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}" Width="170">
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
+                                                           TextAlignment="Center"
+                                                           Foreground="{DynamicResource UmaYellowBrush}"
+                                                           Name="Dispaly_RoadStatus_Dirt"
+                                                           FontSize="70"
+                                                           Text="稍重" />
+                                            </materialDesign:Card>
+                                        </StackPanel>
+
+
+
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+  
+
+
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        FontSize="55" 
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Center" HorizontalAlignment="Right">タイム</TextBlock>
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        FontSize="55" 
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Center" HorizontalAlignment="Right">4F</TextBlock>
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        FontSize="55" 
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Center" HorizontalAlignment="Right">3F</TextBlock>
+
+                                    <materialDesign:Card
+                                        Margin="4"
+                                        Grid.Column="1" HorizontalAlignment="Right"
+                                        Background="{DynamicResource UmaGrayBrush}" 
+                                        VerticalAlignment="Center"
+                                            >
+                                        <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"                                
+                                                   Name="Dispaly_RecordTime"
+                                                   Foreground="Red"
+                                                   FontWeight="Bold"
+                                                   FontSize="45"
+                                                   Width="180"
+                                                   Text="レコード" />
+                                    </materialDesign:Card>
+                                    <StackPanel  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            >
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       Name="Dispaly_Timer_Minute"
+                                                       Margin="0,-10"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="70"
+                                                       Width="41"
+                                                       Text="2" />
+                                        </materialDesign:Card>
+                                        <TextBlock FontSize="45" VerticalAlignment="Bottom" Margin="2,-5">.</TextBlock>
+
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            >
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       TextAlignment="Right"
+                                                       Name="Dispaly_Timer_Second"
+                                                       Margin="0,-10"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="70"
+                                                       Width="82"
+                                                       Text="00" />
+                                        </materialDesign:Card>
+
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            />
+                                        <TextBlock FontSize="45" VerticalAlignment="Bottom" Margin="2,-5">.</TextBlock>
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            >
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       Name="Dispaly_Timer_Decile"
+                                                       Margin="0,-10"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="70"
+                                                       Width="41"
+                                                       Text="1" />
+                                        </materialDesign:Card>
+
+
+
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            >
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       TextAlignment="Right"
+                                                       Margin="0,-10"
+                                                       Name="Dispaly_Timer_Four_Furlong"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="70"
+                                                       Width="82"
+                                                       Text="00" />
+                                        </materialDesign:Card>
+
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            />
+
+
+                                        <TextBlock FontSize="45" VerticalAlignment="Bottom" Margin="2,-5">.</TextBlock>
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            >
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       Margin="0,-10"
+                                                       Name="Dispaly_Timer_Four_Furlong_Decile"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="70"
+                                                       Width="41"
+                                                       Text="5" />
+                                        </materialDesign:Card>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            />
+
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            >
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       TextAlignment="Right"
+                                                       Margin="0,-10"                                                       
+                                                       Name="Dispaly_Timer_Three_Furlong"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="70"
+                                                       Width="82"
+                                                       Text="7" />
+                                        </materialDesign:Card>
+                                        <TextBlock FontSize="45" VerticalAlignment="Bottom" Margin="2,-5">.</TextBlock>
+                                        <materialDesign:Card
+                                            Background="{DynamicResource UmaGrayBrush}" 
+                                            VerticalAlignment="Center"
+                                            >
+                                            <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                                       Margin="0,-10"
+                                                       Name="Dispaly_Timer_Three_Furlong_Decile"
+                                                       Foreground="{DynamicResource UmaYellowBrush}"
+                                                       FontSize="70"
+                                                       Width="41"
+                                                       Text="3" />
+                                        </materialDesign:Card>
+                                    </StackPanel>
+                                </Grid>
+
+
+                                </Grid>
+
+                        </StackPanel>
+                    </materialDesign:DrawerHost>
+
+
+                    <materialDesign:DialogHost.DialogContent>
+                        <StackPanel></StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                </materialDesign:DialogHost>
+
+
+
+
+
+            </DockPanel>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
+
+
+</Window>
