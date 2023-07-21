@@ -52,7 +52,7 @@ namespace UmaRaceToteBoard
             //各種參數設定
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
-                Dispaly_LocationName_F.Text = "箱";
+                /*Dispaly_LocationName_F.Text = "箱";
                 Dispaly_LocationName_S.Text = "車";
 
 
@@ -71,13 +71,13 @@ namespace UmaRaceToteBoard
                 Dispaly_Rank_4th_Digits.Text = "6";
 
                 Dispaly_Rank_5th_Ten.Text = "";
-                Dispaly_Rank_5th_Digits.Text = "7";
+                Dispaly_Rank_5th_Digits.Text = "7";*/
 
                 //確定 審議 写真
                 //同着 ハナ ｱﾀﾏ クビ 大差
                 //½ ¼ ¾ ⅛
 
-                Dispaly_HorseLength_1_2.Text = "クビ";
+              /*  Dispaly_HorseLength_1_2.Text = "クビ";
                 Dispaly_HorseLength_2_3.Text = "ｱﾀﾏ";
                 Dispaly_HorseLength_3_4.Text = "4";
                 Dispaly_HorseLength_4_5.Text = "3";
@@ -94,7 +94,7 @@ namespace UmaRaceToteBoard
                 Dispaly_Timer_Four_Furlong_Decile.Text = "3";
 
                 Dispaly_Timer_Three_Furlong.Text = "24";
-                Dispaly_Timer_Three_Furlong_Decile.Text = "2";
+                Dispaly_Timer_Three_Furlong_Decile.Text = "2";*/
 
                 //Display_RankStatusText.Text = "審議";
 

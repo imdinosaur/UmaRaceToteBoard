@@ -3,16 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UmaRaceToteBoard" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:system="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:local="clr-namespace:UmaRaceToteBoard" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:system="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:ViewModels="clr-namespace:UmaRaceToteBoard.ViewModels" xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         mc:Ignorable="d"
         WindowStyle="None"    
         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" 
         ResizeMode="NoResize"
         Closing="Window_Closing" Height="1024" Width="600"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        d:DataContext="{d:DesignInstance Type=ViewModels:RaceBoardViewModel}"
         >
-
-
+    <Window.DataContext>
+        <ViewModels:RaceBoardViewModel/>
+    </Window.DataContext>
     <materialDesign:DialogHost Identifier="RootDialog" 
                               
             SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
@@ -22,23 +27,6 @@
 
 
             <DockPanel   Background="Black" >
-                <!--
-                <materialDesign:ColorZone Mode="PrimaryDark" Padding="16"
-                        VerticalAlignment="Stretch" 
-                        DockPanel.Dock="Top">
-                    <DockPanel>
-                        <StackPanel Orientation="Horizontal"
-                                materialDesign:RippleAssist.IsCentered="True">
-                            <ToggleButton x:Name="MenuToggleButton"
-                                    Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                            <Label Content="稼動監控系統 Delta 1.0"
-                                    VerticalContentAlignment="Center"
-                                    FontSize="{DynamicResource {x:Static SystemParameters.CaptionHeightKey}}" />
-                        </StackPanel>
-                    </DockPanel>
-                </materialDesign:ColorZone>-->
-
-
                 <materialDesign:DialogHost Identifier="RootDialog" Grid.Row="0" Grid.Column="0"
                                            Margin="0,50"
             SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
@@ -62,8 +50,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center">
-                                    <TextBlock  HorizontalAlignment="Center" Text="東" FontSize="55" Name="Dispaly_LocationName_F"></TextBlock>
-                                    <TextBlock  HorizontalAlignment="Center" Text="京" FontSize="55" Name="Dispaly_LocationName_S" Margin="0,-12,0,0"></TextBlock>
+                                    <TextBlock  HorizontalAlignment="Center" Text="{Binding RaceTrackName}" FontSize="55" TextWrapping="Wrap"></TextBlock>
                                 </StackPanel>
                                 <Grid Grid.Column="1" Grid.Row="0"  >
                                     <Grid.ColumnDefinitions>
@@ -74,19 +61,19 @@
                                         <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                                                        Grid.Column="0" 
-                                                       Width="90"
+                                                       Width="100" 
                                                        TextAlignment="Right"
                                                        Margin="0,-20,10,-20"
-                                                       Name="Display_RaceRound"
+                                                       
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="80"
-                                                       Text="12" />
+                                                       Text="2" />
                                         </Grid>
                                     </materialDesign:Card>
 
-                                    <Grid  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                                         <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                       Margin="-50,0,0,0"
+                                                       Margin="0,0,0,0"
                                                        FontSize="55"
                                                        Foreground="White"
                                                        Text="R" />
@@ -95,10 +82,10 @@
                                 </Grid>
 
                                 <materialDesign:Card 
-                                    Name="Display_RankStatusCard"
+                                    
                                     Grid.Column="2" Margin="15,10,15,5" Grid.Row="0" Background="{DynamicResource UmaRedBrush}">
                                     <TextBlock 
-                                        Name="Display_RankStatusText"
+                                        
                                         Text="確定" 
                                         FontSize="140"
                                         VerticalAlignment="Center"
@@ -121,19 +108,17 @@
 
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                           Name="Dispaly_Rank_1st_Ten"
                                                            Margin="5,0"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
-                                                           Text="1" />
+                                                            Text="{c:Binding HorseNumber_1/10}" />
                                             </StackPanel>
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
-                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"             
-                                                           Name="Dispaly_Rank_1st_Digits"
+                                                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"      
                                                            Margin="5,0"                                    
                                                            Foreground="{DynamicResource UmaYellowBrush}"                                 
                                                            FontSize="70"                                           
-                                                           Text="1" />
+                                                           Text="{c:Binding HorseNumber_1%10}" />
                                             </StackPanel>
 
                                         </Grid>
@@ -154,14 +139,13 @@
 
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                           Name="Dispaly_Rank_2nd_Ten"
+                                                           
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
                                                            Text="" />
                                             </StackPanel>
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                           Name="Dispaly_Rank_2nd_Digits"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
                                                            Text="9" />
@@ -185,14 +169,12 @@
 
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                           Name="Dispaly_Rank_3rd_Ten"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"        
                                                            Text="" />
                                             </StackPanel>
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                           Name="Dispaly_Rank_3rd_Digits"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
                                                            Text="7" />
@@ -216,14 +198,12 @@
 
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                           Name="Dispaly_Rank_4th_Ten"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
                                                            Text="" />
                                             </StackPanel>
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                           Name="Dispaly_Rank_4th_Digits"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
                                                            Text="3" />
@@ -247,7 +227,6 @@
 
                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"         
-                                                           Name="Dispaly_Rank_5th_Ten"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
                                                            Text="" />
@@ -255,7 +234,6 @@
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
                                                            Foreground="{DynamicResource UmaYellowBrush}"
-                                                           Name="Dispaly_Rank_5th_Digits"
                                                            FontSize="70"
                                                            Text="2" />
                                             </StackPanel>
@@ -344,7 +322,6 @@
                                             <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
                                                            TextAlignment="Center"
-                                                           Name="Dispaly_HorseLength_1_2"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="55"
                                                            Text="ハナ" />
@@ -355,7 +332,6 @@
                                             <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
 
                                                         <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
-                                                                   Name="Dispaly_HorseLength_2_3"
                                                                    TextAlignment="Center"
                                                                    Foreground="{DynamicResource UmaYellowBrush}"
                                                                    FontSize="55"
@@ -369,7 +345,6 @@
 
                                                         <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                                                                    HorizontalAlignment="Center"
-                                                                   Name="Dispaly_HorseLength_3_4"
                                                                    Foreground="{DynamicResource UmaYellowBrush}"
                                                                    FontSize="55" 
                                                                    Text="ｱﾀﾏ" />
@@ -381,7 +356,6 @@
                                             <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}">
 
                                                     <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"        HorizontalAlignment="Center" VerticalAlignment="Center"  
-                                                                   Name="Dispaly_HorseLength_4_5"
                                                                    TextAlignment="Center"
                                                                    Foreground="{DynamicResource UmaYellowBrush}"
                                                                    FontSize="55"
@@ -416,7 +390,6 @@
                                             <materialDesign:Card   Background="{DynamicResource UmaGrayBrush}" Width="170">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
                                                            TextAlignment="Center"
-                                                           Name="Dispaly_RoadStatus_Grass"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
                                                        Text="良" />
@@ -431,7 +404,7 @@
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" 
                                                            TextAlignment="Center"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
-                                                           Name="Dispaly_RoadStatus_Dirt"
+
                                                            FontSize="70"
                                                            Text="稍重" />
                                             </materialDesign:Card>
@@ -482,7 +455,7 @@
                                         VerticalAlignment="Center"
                                             >
                                         <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"                                
-                                                   Name="Dispaly_RecordTime"
+
                                                    Foreground="Red"
                                                    FontWeight="Bold"
                                                    FontSize="45"
@@ -495,7 +468,7 @@
                                             VerticalAlignment="Center"
                                             >
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
-                                                       Name="Dispaly_Timer_Minute"
+                                                     
                                                        Margin="0,-10"
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="70"
@@ -510,7 +483,6 @@
                                             >
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                                                        TextAlignment="Right"
-                                                       Name="Dispaly_Timer_Second"
                                                        Margin="0,-10"
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="70"
@@ -528,7 +500,7 @@
                                             VerticalAlignment="Center"
                                             >
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
-                                                       Name="Dispaly_Timer_Decile"
+                               
                                                        Margin="0,-10"
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="70"
@@ -548,7 +520,6 @@
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                                                        TextAlignment="Right"
                                                        Margin="0,-10"
-                                                       Name="Dispaly_Timer_Four_Furlong"
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="70"
                                                        Width="82"
@@ -568,7 +539,7 @@
                                             >
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                                                        Margin="0,-10"
-                                                       Name="Dispaly_Timer_Four_Furlong_Decile"
+                                                       
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="70"
                                                        Width="41"
@@ -587,8 +558,7 @@
                                             >
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                                                        TextAlignment="Right"
-                                                       Margin="0,-10"                                                       
-                                                       Name="Dispaly_Timer_Three_Furlong"
+                                                       Margin="0,-10"                                               
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="70"
                                                        Width="82"
@@ -601,7 +571,7 @@
                                             >
                                             <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                                                        Margin="0,-10"
-                                                       Name="Dispaly_Timer_Three_Furlong_Decile"
+                                                       
                                                        Foreground="{DynamicResource UmaYellowBrush}"
                                                        FontSize="70"
                                                        Width="41"
