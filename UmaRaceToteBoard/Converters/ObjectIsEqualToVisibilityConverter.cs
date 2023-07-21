@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GD_CommonLibrary;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows;
 
 namespace UmaRaceToteBoard
 {
-    public class ObjectIsEqualToVisibilityConverter
+    public class ObjectIsEqualToVisibilityConverter : BaseValueConverter
     {
         public bool Invert { get; set; }
         public bool IsNullable { get; set; }

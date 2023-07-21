@@ -111,7 +111,7 @@
                                                            Margin="5,0"
                                                            Foreground="{DynamicResource UmaYellowBrush}"
                                                            FontSize="70"
-                                                            Text="{c:Binding HorseNumber_1/10}" />
+                                                            Text="{c:Binding HorseNumber_1/10}" Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text , Converter={equal}}}" />
                                             </StackPanel>
                                             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
                                                 <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"      

@@ -85,6 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ObjectIsEqualToVisibilityConverter.cs" />
     <Compile Include="Models\HorseModel.cs" />
     <Compile Include="Models\HorseRaceParameterModel.cs" />
     <Compile Include="ViewModels\RaceBoardViewModel.cs" />
